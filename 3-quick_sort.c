@@ -9,6 +9,7 @@
  * @low: lower bound
  * @high: upper bound
  * @size: size of the array
+ * Return: int
  */
 int lomuto_partition(int *array, int low, int high, int size)
 {
@@ -58,10 +59,11 @@ void quicksort(int *array, int low, int high, int size)
  * quick_sort - sorts an array using Quick Sort
  * @array: pointer to the array
  * @size: size of the array
+ * Return: void
  */
 void quick_sort(int *array, size_t size)
 {
 	if (array == NULL || size < 2)
 		return;
-	quicksort(array, 0, size, size);
+	quicksort(array, 0, size - 1, size);
 }
