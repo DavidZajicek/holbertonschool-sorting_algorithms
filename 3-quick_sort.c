@@ -2,50 +2,58 @@
 #include <stdlib.h>
 #include "sort.h"
 
-/**
- * swap - swaps two integers
- * @a: the first number
- * @b: the second number
- */
-void swap(int *a, int *b)
-{
-	size_t temp;
-	temp = *a;
-	*a = *b;
-	*b = temp;
-}
+
 /**
  * lomuto_partition - ..
  * @array: pointer to the array
- * @lb: lower bound
- * @ub: upper bound 
+ * @low: lower bound
+ * @high: upper bound
+ * @size: size of the array
  */
-void lomuto_partition(int *array, int low, int high)
+int lomuto_partition(int *array, int low, int high, int size)
 {
-	size_t pivot, start, end;
+	int pivot, i, j, temp;
 
-	pivot = array[low];
-	start = low + 1;
-	end = hight;
+	pivot = array[high];
+	i = low;
 
-	while (start <= end)
+	for (j = low; j <= high - 1; j++)
 	{
-	       while (start <= end && array[start] <= pivot)
-	       {
-		       start++;
-	       }
-	       while (start <= end && array[end] > pivot)
-	       {
-		       end--;
-	       }
-	       if (start < end)
-	       {
-		       swap(&array[start], &array[end]);
-	       }
+		if (array[j] <= pivot)
+		{
+			temp = array[i];
+			array[i] = array[j];
+			array[j] = temp;
+			i++;
+			print_array(array, size);
+		}
 	}
-	swap(&array[low], &array[end]);
-	return (end);
+	temp = array[i];
+	array[i] = array[high];
+	array[high] = temp;
+	print_array(array, size);
+	return (i);
 }
+
+/**
+ * quicksort - quicksort
+ * @array: array
+ * @low: low
+ * @high: high
+ * @size: size of the array
+ * Return: void
+ */
+void quicksort(int *array, int low, int high, int size)
+{
+	int partition;
+
+	if (low >= high || low < 0)
+		return;
+	partition = lomuto_partition(array, low, high, size);
+	quicksort(array, low, partition - 1, size);
+	quicksort(array, partition + 1, high, size);
+}
+
 /**
  * quick_sort - sorts an array using Quick Sort
  * @array: pointer to the array
@@ -53,7 +61,7 @@ void lomuto_partition(int *array, int low, int high)
  */
 void quick_sort(int *array, size_t size)
 {
-	if (array == NULL)
+	if (array == NULL || size < 2)
 		return;
-
+	quicksort(array, 0, size, size);
 }
