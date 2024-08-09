@@ -9,6 +9,7 @@
 void swap_nodes(listint_t **list, listint_t *node)
 {
 	listint_t *prev_node = node->prev;
+
 	if (prev_node == NULL || node == NULL)
 		return;
 	if (prev_node->prev != NULL)
@@ -31,11 +32,11 @@ void swap_nodes(listint_t **list, listint_t *node)
  */
 void insertion_sort_list(listint_t **list)
 {
-	listint_t *node, next_node;
+	listint_t *node, *next_node;
 
 	if (list == NULL || *list == NULL)
 		return;
-        node = (*list)->next;
+	node = (*list)->next;
 	while (node != NULL)
 	{
 		next_node = node->next;
