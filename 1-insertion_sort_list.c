@@ -14,6 +14,7 @@ void swap_nodes(listint_t **list, listint_t *node)
 		return;
 	if (prev_node->prev != NULL)
 		prev_node->prev->next = node;
+	node->prev = prev_node->prev;
 
 	prev_node->next = node->next;
 	if (node->next != NULL)
